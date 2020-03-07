@@ -1,0 +1,17 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background: black;
+}
+
+.videoWrapper {
+  background: black;
+  margin: auto;
+  text-align: center;
+  width: 1024px;
+  overflow: hidden;
+  height: 500px;
+}
+
+#videoplayer {
+}
