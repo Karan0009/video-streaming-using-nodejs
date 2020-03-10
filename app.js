@@ -13,16 +13,13 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/video", (req, res, next) => {
-  const path = "public/videos/testVid.mp4";
-  const stat = fs.statSync(path);
+  const filePath = "public/videos/testVid.mp4";
+  const stat = fs.statSync(filePath);
   const fileSize = stat.size;
   const range = req.headers.range || "no range";
   console.log(range);
 
-  // res.setHeader("Content-Type", "video/mp4");
-  // fs.createReadStream(path).pipe(res);
-
-  fs.readFile(path, (err, data) => {
+  fs.readFile(filePath, (err, data) => {
     if (err) console.log(err);
     else {
       res.setHeader("Content-Type", "video/mp4");
@@ -30,6 +27,7 @@ app.get("/video", (req, res, next) => {
     }
   });
 
+  // the code below is from medium.com to do video streaming
   // if (range) {
   //   const parts = range.replace(/bytes=/, "").split("-");
   //   const start = parseInt(parts[0], 10);
@@ -43,7 +41,7 @@ app.get("/video", (req, res, next) => {
   //   }
 
   //   const chunksize = end - start + 1;
-  //   const file = fs.createReadStream(path, { start, end });
+  //   const file = fs.createReadStream(filePath, { start, end });
   //   const head = {
   //     "Content-Range": `bytes ${start}-${end}/${fileSize}`,
   //     "Accept-Ranges": "bytes",
@@ -59,7 +57,7 @@ app.get("/video", (req, res, next) => {
   //     "Content-Type": "video/mp4"
   //   };
   //   res.writeHead(200, head);
-  //   fs.createReadStream(path).pipe(res);
+  //   fs.createReadStream(filePath).pipe(res);
   // }
 });
 
